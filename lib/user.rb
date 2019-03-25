@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :dispensaryinventories
-  has_many :strains, through: :dispensaryinventories
+  has_many :dispensary_inventories
+  has_many :strains, through: :dispensary_inventories
 
   def self.names
     all.map { |user| user.username}

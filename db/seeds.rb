@@ -6,3 +6,5 @@ twenty_two_jack = Strain.create(name: "22Jack", indica: 50, sativa: 50, thc: 15.
 chocolope = Strain.create(name: "Chocolope", indica: 5, sativa: 95, thc: 13.00, cbd: 0.03, benefits: "happiness, uplift, relaxation, euphoria, energy")
 
 harmony = Dispensary.create(name: "Harmony", location: "600 Meadowlands Pkwy", zip_code: "07094")
+
+harmony_strawberry_og = DispensaryInventory.create(dispensary_id: 1, strain_id: 1)
