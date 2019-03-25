@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_180633) do
+ActiveRecord::Schema.define(version: 2019_03_25_191835) do
 
   create_table "dispensaries", force: :cascade do |t|
     t.string "name"
     t.string "location"
-    t.integer "zip_code"
+    t.string "zip_code"
   end
 
   create_table "dispensary_inventories", force: :cascade do |t|
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(version: 2019_03_25_180633) do
     t.string "benefits"
     t.float "thc"
     t.float "cbd"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
   end
 
 end
