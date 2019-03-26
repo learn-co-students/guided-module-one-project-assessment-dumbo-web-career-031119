@@ -15,9 +15,11 @@ class User < ActiveRecord::Base
   end
 
   def cart_items
+    puts "Your cart:"
     cart.each do |item|
-      puts "#{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}"
+      puts "#{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}".magenta
     end
+    puts "\n"
   end
 
   def buy_item_from_dispensary(dispensary_item)

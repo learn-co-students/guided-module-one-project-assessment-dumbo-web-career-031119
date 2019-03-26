@@ -1,26 +1,37 @@
 require_relative '../config/environment'
+require "colorize"
 ActiveRecord::Base.logger = nil
 
 prompt = TTY::Prompt.new
 system "clear"
 
-puts "Welcome!"
+#puts String.color_samples
+def heading(string)
+  puts "                            ".colorize(color: :light_white, background: :green)
+  puts "        #{string}        ".colorize(color: :light_white, background: :green)
+  puts "                            ".colorize(color: :light_white, background: :green)
+end
+
+heading("   Welcome! ")
 
 if User.all.count == 0
   #User.connection
-  puts "You are our first user! Make a username"
+  puts "You are our first user! Make a username".blue
   select = "signup"
 else
-  select = prompt.select("Would you like to...", %w(login signup))
+  select = prompt.select("Would you like to...".magenta, %w(login signup exit))
 end
 
 if select == "signup"
   username = prompt.ask('username:')
   password = prompt.mask('password:')
   user = User.create(username: username, password: password)
+elsif select == "exit"
+  system "clear"
+  exit
 else
-  user = prompt.select("Users", User.tty_hash)
-  password = prompt.mask('password: ')
+  user = prompt.select("User:".magenta, User.tty_hash)
+  password = prompt.mask('password:'.magenta)
   while password != user.password
     puts "Invalid password. Please try again."
     password = prompt.mask('password: ')
@@ -36,15 +47,20 @@ while select != 4
       #Strain.connection
       puts "There are no strains available"
     else
-      strain = prompt.select("Strains", Strain.class_hash, per_page: 20)
+      heading("   STRAINS  ")
+      strain = prompt.select("Strains".cyan, Strain.class_hash, per_page: 20)
       strain.info
-
       boolean = prompt.select('Would you like this strain?', {yes: true, no: false})
-      if boolean == true
+      if DispensaryInventory.where(strain_id: strain.id).count == 0
+        puts "#{strain.name} is currently unavailable.".red
+        puts "\n"
+      elsif boolean == true
         dispensaries = strain.dispensaries
         selection = prompt.select('Available at:', strain.locations)
         CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
-        "#{strain.name} from #{selection.dispensary.name} has been added to your cart!"
+        puts ""
+        puts "#{selection.strain.name} from #{selection.dispensary.name} has been added to your cart!"
+        puts ""
       end
     end
   elsif select == 2
@@ -52,9 +68,17 @@ while select != 4
       #Strain.connection
       puts "There are no dispensaries."
     else
+      heading("DISPENSARIES")
       dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
       selection = prompt.select('Select a strain:', dispensary.inventory)
-      CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+      selection.strain.info
+      boolean = prompt.select('Would you like this strain?', {yes: true, no: false})
+      if boolean == true
+        CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+        puts ""
+        puts "#{selection.strain.name} from #{selection.dispensary.name} has been added to your cart!"
+        puts ""
+      end
     end
   elsif select == 3
     if Strain.all.count == 0 || user.cart.empty?

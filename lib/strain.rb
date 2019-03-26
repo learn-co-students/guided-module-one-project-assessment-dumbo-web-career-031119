@@ -40,4 +40,5 @@ class Strain < ActiveRecord::Base
     hash
   end
 
+
 end
