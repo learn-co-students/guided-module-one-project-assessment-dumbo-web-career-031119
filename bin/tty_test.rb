@@ -17,27 +17,23 @@ else
   user = prompt.select("Users", User.tty_hash)
 end
 
-while select != 3
-  select = prompt.select("Would you like to select from a list of...", {
-      strains: 1, dispensaries: 2, "exit app" => 3})
+while select != 4
+  select = prompt.select("Would you like to...", {
+      "select from strains" => 1, "select from dispensaries" => 2, "view cart" => 3, "exit app" => 4})
   system "clear"
   if select == 1
     strain = prompt.select("Strains", Strain.class_hash)
     strain.info
-    y_or_n = prompt.yes?('Would you like this strain?') # y returns true
-   if y_or_n
-     dispensaries = strain.dispensaries
-     selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
-     purchase = CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
-     select = prompt.select("#{strain.name} from #{selection.dispensary.name} has been added to your cart!", {"view cart" => 4 , exit: 3})
-   else
-     select = 1
-   end
+    select = prompt.select('Would you like this strain?', {yes: 5, no: nil})
+    dispensaries = strain.dispensaries
+    selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
+    purchase = CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+    "#{strain.name} from #{selection.dispensary.name} has been added to your cart!"
   elsif select == 2
     dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
-    Dispensary.find_by(name: dispensary.name).info
-  elsif select == 4
-    puts user.cart
+    #Dispensary.find_by(name: dispensary.name).info
+  elsif select == 3
+    user.cart
   end
 end
 
