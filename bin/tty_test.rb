@@ -27,6 +27,9 @@ while select != 3
    if y_or_n
      dispensaries = strain.dispensaries
      selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
+     cart_item = CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+     puts "Added to cart!"
+     binding.pry
   #   prompt.ask("Added to cart!", {continue_shopping, all_good})
      #need a method to return hash of selected dispensaries with name as key and instance of DispensaryInventory as value
    end
