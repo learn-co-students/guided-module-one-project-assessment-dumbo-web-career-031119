@@ -4,16 +4,17 @@ ActiveRecord::Base.logger = nil
 prompt = TTY::Prompt.new
 system "clear"
 
+puts "Welcome!"
 select = prompt.select("Would you like to...", %w(login signup))
 
-
+cart = []
 
 if select == "signup"
   username = prompt.ask('username:')
   password = prompt.mask('password:')
   user = User.create(username: username, password: password)
 else
-  user = prompt.select("Users", User.names)
+  user = prompt.select("Users", User.tty_hash)
 end
 
 while select != 3
@@ -27,12 +28,16 @@ while select != 3
    if y_or_n
      dispensaries = strain.dispensaries
      selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
-  #   prompt.ask("Added to cart!", {continue_shopping, all_good})
-     #need a method to return hash of selected dispensaries with name as key and instance of DispensaryInventory as value
+     purchase = CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+     select = prompt.select("#{strain.name} from #{selection.dispensary.name} has been added to your cart!", {"view cart" => 4 , exit: 3})
+   else
+     select = 1
    end
   elsif select == 2
     dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
-    Dispensary.find_by(name: dispensary).info
+    Dispensary.find_by(name: dispensary.name).info
+  elsif select == 4
+    puts user.cart
   end
 end
 

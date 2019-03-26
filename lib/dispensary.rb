@@ -26,7 +26,7 @@ class Dispensary < ActiveRecord::Base
   def self.tty_choices(strain) #hash with name => instance
     choices = {}
     self.all.each do |dispensary|
-      choices[dispensary.name] = strain
+      choices[dispensary.name] = DispensaryInventory.find_by(strain_id: strain.id)
     end
     choices
   end
