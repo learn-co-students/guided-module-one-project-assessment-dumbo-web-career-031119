@@ -35,9 +35,10 @@ while select != 3
    end
   elsif select == 2
     dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
-    Dispensary.find_by(name: dispensary.name).info
+    #Dispensary.find_by(name: dispensary.name).info
+     dispensary.inventory
   elsif select == 4
-    puts user.cart
+    user.cart
   end
 end
 
