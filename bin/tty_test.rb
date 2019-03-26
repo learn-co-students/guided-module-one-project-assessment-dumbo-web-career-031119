@@ -32,7 +32,8 @@ while select != 4
   elsif select == 2
     dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
     #Dispensary.find_by(name: dispensary.name).info
-    dispensary.inventory
+    selection = prompt.select('Select a strain:', dispensary.inventory)
+    CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
   elsif select == 3
     user.cart
   end

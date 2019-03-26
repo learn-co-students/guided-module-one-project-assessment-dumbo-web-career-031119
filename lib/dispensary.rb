@@ -38,13 +38,13 @@ class Dispensary < ActiveRecord::Base
   end
 
   def inventory
-    array =
+    hash={}
      DispensaryInventory.all.select do |item|
       item.dispensary_id == self.id
+    end.each do |item|
+      hash[Strain.find(item.strain_id).name] = item
     end
-    array.each do |item|
-      puts Strain.find(item.strain_id).name
-    end
+    hash
   end
 
 end
