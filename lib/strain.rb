@@ -14,4 +14,12 @@ class Strain < ActiveRecord::Base
     puts "CBD: #{self.cbd}"
     puts "Benefits: #{self.benefits}"
   end
+
+  def self.search_by_benefit(benefit)
+    benefit = "%#{benefit}%"
+    Strain.where('benefits LIKE ?',benefit).map do |strain|
+      strain.name
+    end
+  end
+
 end
