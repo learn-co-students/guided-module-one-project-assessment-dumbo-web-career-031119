@@ -9,10 +9,13 @@ class User < ActiveRecord::Base
   end
 
   def cart
-  user_cart =  CartItem.all.select do |item|
+    CartItem.all.select do |item|
       self.id == item.user_id
     end
-    user_cart.each do |item|
+  end
+
+  def cart_items
+    cart.each do |item|
       puts "#{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}"
     end
   end
