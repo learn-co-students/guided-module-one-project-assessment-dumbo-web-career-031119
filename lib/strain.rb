@@ -15,6 +15,14 @@ class Strain < ActiveRecord::Base
     puts "Benefits: #{self.benefits}"
   end
 
+  def self.class_hash #hash with name => instance
+    choices = {}
+    self.all.each do |instance|
+      choices[instance.name] = instance
+    end
+    choices
+  end
+
   def self.search_by_benefit(benefit)
     benefit = "%#{benefit}%"
     Strain.where('benefits LIKE ?',benefit).map do |strain|
