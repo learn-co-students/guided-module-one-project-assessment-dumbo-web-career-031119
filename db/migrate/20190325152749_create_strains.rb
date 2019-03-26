@@ -5,6 +5,7 @@ class CreateStrains < ActiveRecord::Migration[5.2]
       t.integer :indica
       t.integer :sativa
       t.string :benefits
+      t.string :medical
     end
   end
 end
