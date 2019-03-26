@@ -21,17 +21,17 @@ while select != 3
       strains: 1, dispensaries: 2, "exit app" => 3})
   system "clear"
   if select == 1
-    strain = prompt.select("Strains", Strain.names)
-    Strain.find_by(name: strain).info
+    strain = prompt.select("Strains", Strain.class_hash)
+    strain.info
     y_or_n = prompt.yes?('Would you like this strain?') # y returns true
    if y_or_n
-     dispensaries = Strain.find_by(name: strain).dispensaries
-     prompt.select('Available at:', dispensaries.infos)
+     dispensaries = strain.dispensaries
+     selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
   #   prompt.ask("Added to cart!", {continue_shopping, all_good})
-     #need a method to return hash of selected dispensaries with name as key and instance as value
+     #need a method to return hash of selected dispensaries with name as key and instance of DispensaryInventory as value
    end
   elsif select == 2
-    dispensary = prompt.select("Dispensaries", Dispensary.names)
+    dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
     Dispensary.find_by(name: dispensary).info
   end
 end

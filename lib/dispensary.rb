@@ -15,10 +15,18 @@ class Dispensary < ActiveRecord::Base
     puts self.location
   end
 
-  def self.dispensary_hash #hash with name => instance
+  def self.class_hash #hash with name => instance
+    choices = {}
+    self.all.each do |instance|
+      choices[instance.name] = instance
+    end
+    choices
+  end
+
+  def self.tty_choices(strain) #hash with name => instance
     choices = {}
     self.all.each do |dispensary|
-      choices[dispensary.name] = dispensary
+      choices[dispensary.name] = strain
     end
     choices
   end
