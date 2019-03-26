@@ -15,6 +15,11 @@ if select == "signup"
   user = User.create(username: username, password: password)
 else
   user = prompt.select("Users", User.tty_hash)
+  password = prompt.mask('password: ')
+  while password != user.password
+    puts "Invalid password. Please try again."
+    password = prompt.mask('password: ')
+  end
 end
 
 while select != 4
