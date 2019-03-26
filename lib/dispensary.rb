@@ -37,14 +37,4 @@ class Dispensary < ActiveRecord::Base
     end
   end
 
-  def inventory
-    array =
-     DispensaryInventory.all.select do |item|
-      item.dispensary_id == self.id
-    end
-    array.each do |item|
-      puts Strain.find(item.strain_id).name
-    end
-  end
-
 end

@@ -27,12 +27,12 @@ while select != 4
     select = prompt.select('Would you like this strain?', {yes: 5, no: nil})
     dispensaries = strain.dispensaries
     selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
-    purchase = CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+    CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
     "#{strain.name} from #{selection.dispensary.name} has been added to your cart!"
   elsif select == 2
     dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
     #Dispensary.find_by(name: dispensary.name).info
-    dispensary.inventory
+    prompt.select("Strains", )
   elsif select == 3
     user.cart
   end
