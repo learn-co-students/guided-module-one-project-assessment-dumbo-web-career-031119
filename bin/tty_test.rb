@@ -27,13 +27,16 @@ while select != 4
       "select from strains" => 1, "select from dispensaries" => 2, "view cart" => 3, "exit app" => 4})
   system "clear"
   if select == 1
-    strain = prompt.select("Strains", Strain.class_hash)
+    strain = prompt.select("Strains", Strain.class_hash, per_page: 20)
     strain.info
-    select = prompt.select('Would you like this strain?', {yes: 5, no: nil})
-    dispensaries = strain.dispensaries
-    selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
-    CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
-    "#{strain.name} from #{selection.dispensary.name} has been added to your cart!"
+
+    boolean = prompt.select('Would you like this strain?', {yes: true, no: false})
+    if boolean == true
+      dispensaries = strain.dispensaries
+      selection = prompt.select('Available at:', strain.locations)
+      CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+      "#{strain.name} from #{selection.dispensary.name} has been added to your cart!"
+    end
   elsif select == 2
     dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
     #Dispensary.find_by(name: dispensary.name).info

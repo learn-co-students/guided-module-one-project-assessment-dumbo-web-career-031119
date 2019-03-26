@@ -13,6 +13,7 @@ class Strain < ActiveRecord::Base
     puts "THC: #{self.thc}"
     puts "CBD: #{self.cbd}"
     puts "Benefits: #{self.benefits}"
+    puts "\n"
   end
 
   def self.class_hash #hash with name => instance
@@ -28,6 +29,15 @@ class Strain < ActiveRecord::Base
     Strain.where('benefits LIKE ?',benefit).map do |strain|
       strain.name
     end
+  end
+
+  def locations
+    hash={}
+    DispensaryInventory.all.select { |item|
+      item.strain_id == self.id
+    }.each { |item|
+      hash[Dispensary.find(item.dispensary_id).name] = item}
+    hash
   end
 
 end

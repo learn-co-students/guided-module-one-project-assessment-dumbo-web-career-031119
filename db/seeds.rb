@@ -1,7 +1,7 @@
 # strain
 strawberry_og = Strain.create(name: "Strawberry OG", indica: 40, sativa: 60, thc: 23.00, cbd: 0.03, benefits: "euphoria, happiness, relaxation, uplift, creativity", medical: "depression, nausea, lack of appetite, stress, pain")
-# purple_kush = Strain.create(name: "Purple Kush", indica: 100, sativa: 0, thc: 22.00, cbd: 0.08 benefits: "relaxation, sleep", medical: "stress, pain, insomnia, depression")
-chrome_cake = Strain.create(name: "Chrome Cake", indica: 80, sativa: 20, thc: 28.00, cbd: 0.04)
+purple_kush = Strain.create(name: "Purple Kush", indica: 100, sativa: 0, thc: 22.00, cbd: 0.08, benefits: "relaxation, sleep", medical: "stress, pain, insomnia, depression")
+chrome_cake = Strain.create(name: "Chrome Cake", indica: 80, sativa: 20, thc: 28.00, cbd: 0.04, benefits: "relaxation, euphoria")
 twenty_two_jack = Strain.create(name: "22Jack", indica: 50, sativa: 50, thc: 15.00, cbd: 0.07, benefits: "uplift, happiness, energy, euphoria, creativity", medical: "depression, fatigue, stress, muscle spasms, nausea")
 chocolope = Strain.create(name: "Chocolope", indica: 5, sativa: 95, thc: 13.00, cbd: 0.03, benefits: "happiness, uplift, relaxation, euphoria, energy", medical: "stress, depression, fatigue, lack of appetite, pain")
 girl_scout_cookies = Strain.create(name: "Girl Scout Cookies", indica: 60, sativa: 40, thc: 23.00, cbd: 0.15, benefits: "creativity, euphoria, happiness, relaxation, uplift", medical: "depression, fatigue, stress")

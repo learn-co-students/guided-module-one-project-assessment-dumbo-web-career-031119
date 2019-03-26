@@ -10,38 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_161257) do
-
-  create_table "cart_items", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "dispensary_inventory_id"
-  end
-
-  create_table "dispensaries", force: :cascade do |t|
-    t.string "name"
-    t.string "location"
-    t.string "town"
-    t.string "zip_code"
-  end
-
-  create_table "dispensary_inventories", force: :cascade do |t|
-    t.integer "strain_id"
-    t.integer "dispensary_id"
-  end
-
-  create_table "strains", force: :cascade do |t|
-    t.string "name"
-    t.integer "indica"
-    t.integer "sativa"
-    t.string "benefits"
-    t.string "medical"
-    t.float "thc"
-    t.float "cbd"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password"
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end
