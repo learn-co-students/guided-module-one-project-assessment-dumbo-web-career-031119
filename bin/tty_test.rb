@@ -2,6 +2,7 @@ require_relative '../config/environment'
 ActiveRecord::Base.logger = nil
 
 prompt = TTY::Prompt.new
+system "clear"
 
 select = prompt.select("Would you like to...", %w(login signup))
 
@@ -18,6 +19,7 @@ end
 while select != 3
   select = prompt.select("Would you like to select from a list of...", {
       strains: 1, dispensaries: 2, "exit app" => 3})
+  system "clear"
   if select == 1
     strain = prompt.select("Strains", Strain.names)
     Strain.find_by(name: strain).info
@@ -25,6 +27,8 @@ while select != 3
    if y_or_n
      dispensaries = Strain.find_by(name: strain).dispensaries
      prompt.select('Available at:', dispensaries.infos)
+  #   prompt.ask("Added to cart!", {continue_shopping, all_good})
+     #need a method to return hash of selected dispensaries with name as key and instance as value
    end
   elsif select == 2
     dispensary = prompt.select("Dispensaries", Dispensary.names)
