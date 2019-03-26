@@ -33,6 +33,9 @@ while select != 3
 end
 
 #p Strain.find_by(name: strain).name
+def search_by_benefit(benefit)
+Strain.where('benefits LIKE ?','%#{benefit}')
+end 
 
 #binding.pry
 0
