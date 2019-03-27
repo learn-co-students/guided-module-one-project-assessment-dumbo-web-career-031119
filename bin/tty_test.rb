@@ -90,7 +90,7 @@ while select != 4
       puts "Your cart is empty.".red
     else
       heading("YOUR CART")
-      user.cart_items
+      user.cart_display
     end
   end
 end

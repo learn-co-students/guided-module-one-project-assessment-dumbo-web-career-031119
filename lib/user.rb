@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :dispensary_inventories
   has_many :strains, through: :dispensary_inventories
+  has_many :cart_items
 
   def self.tty_hash
     hash = {}
@@ -14,7 +15,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def cart_items
+  def cart_display
     puts "Your cart:"
     cart.each do |item|
       puts "#{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}".magenta
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def total
-#    CartItem.all.select { |}
+    self.cart_items.map { |cartItem| cartItem.price}.sum
   end
 
 
