@@ -23,6 +23,14 @@ class Dispensary < ActiveRecord::Base
     choices
   end
 
+  def format_price
+    if pricing.to_s.split(".")[1].length == 1
+      price = pricing.to_s + "0"
+    else
+      price = pricing.round(2).to_s
+    end
+ end
+
   # def self.tty_choices(strain) #hash with name => instance
   #   choices = {}
   #   self.all.each do |dispensary|
