@@ -97,17 +97,15 @@ while select != 4
     else
       heading("  YOUR CART ")
       user.cart_display
-      select prompt.select("Would you like to...", {
-          "checkout" => 1, "exit app" => 2})
-      if
-        select == 1
+      select = prompt.select("Would you like to...", {
+          "continue shopping" => 1, "checkout" => 2, "exit app" => 3})
+      if select == 2
         user.empty_cart
         "thank you for shopping with us!"
         exit
       elsif select == 2
         system"clear"
         exit
-      else
       end
     end
   end
