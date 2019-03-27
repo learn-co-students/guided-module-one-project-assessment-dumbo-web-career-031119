@@ -32,9 +32,9 @@ class User < ActiveRecord::Base
   # end
 
   def cart_display
-   puts "Your cart:"
+   puts "Your cart:".magenta
    cart.each do |item|
-     puts "1/8 oz. #{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}, $#{item.format_pricing}".magenta
+     puts "⬡ 1/8 oz. #{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}, $#{item.format_pricing}".white
    end
    puts ""
    print " Your total is ".colorize(color: :blue, background: :cyan)
