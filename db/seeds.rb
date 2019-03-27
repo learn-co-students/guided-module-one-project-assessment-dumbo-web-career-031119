@@ -26,7 +26,3 @@ compassionate.add_to_inventory(compassionate_strains)
 curaleaf.add_to_inventory(curaleaf_strains)
 garden_state.add_to_inventory(garden_state_strains)
 greenleaf.add_to_inventory(greenleaf_strains)
-
-
-
-User.create(username: "Serena", password: "serena")
