@@ -32,12 +32,21 @@ class Strain < ActiveRecord::Base
     end
   end
 
+  # def locations (this method displays formatted price)
+  #   hash={}
+  #   DispensaryInventory.all.select { |item|
+  #     item.strain_id == self.id
+  #     }.each { |item|
+  #     hash["#{Dispensary.find(item.dispensary_id).name}, $#{Dispensary.find(item.dispensary_id).format_price} per 1/8 oz." ] = item}
+  #   hash
+  # end
+
   def locations
     hash={}
     DispensaryInventory.all.select { |item|
       item.strain_id == self.id
       }.each { |item|
-      hash["#{Dispensary.find(item.dispensary_id).name}, $#{Dispensary.find(item.dispensary_id).format_price} per 1/8 oz." ] = item}
+      hash["#{Dispensary.find(item.dispensary_id).name}, $#{Dispensary.find(item.dispensary_id).pricing} per 1/8 oz." ] = item}
     hash
   end
 

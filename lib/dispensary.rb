@@ -31,14 +31,6 @@ class Dispensary < ActiveRecord::Base
     end
  end
 
-  # def self.tty_choices(strain) #hash with name => instance
-  #   choices = {}
-  #   self.all.each do |dispensary|
-  #     choices[dispensary.name] = DispensaryInventory.find_by(strain_id: strain.id)
-  #   end
-  #   choices
-  # end
-
   def add_to_inventory(arr)
     arr.each do |strain|
       DispensaryInventory.create(dispensary_id: self.id, strain_id: strain.id)
