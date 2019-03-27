@@ -31,9 +31,9 @@ class Dispensary < ActiveRecord::Base
   #   choices
   # end
 
-  def add_to_inventory(arr,price)
+  def add_to_inventory(arr)
     arr.each do |strain|
-      DispensaryInventory.create(dispensary_id: self.id, strain_id: strain.id, price: price)
+      DispensaryInventory.create(dispensary_id: self.id, strain_id: strain.id)
     end
   end
 

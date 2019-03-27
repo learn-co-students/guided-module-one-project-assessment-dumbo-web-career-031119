@@ -6,6 +6,7 @@ prompt = TTY::Prompt.new
 system "clear"
 
 #puts String.color_samples
+
 def heading(string)
   puts "                            ".colorize(color: :light_white, background: :green)
   puts "        #{string}        ".colorize(color: :light_white, background: :green)
@@ -70,6 +71,9 @@ while select != 4
     else
       heading("DISPENSARIES")
       dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
+      puts ""
+      puts "All strains are $#{dispensary.pricing} for 1/8 oz.".colorize(color: :blue, background: :cyan)
+      puts ""
       selection = prompt.select('Select a strain:', dispensary.inventory)
       selection.strain.info
       boolean = prompt.select('Would you like this strain?', {yes: true, no: false})
