@@ -50,7 +50,7 @@ while select != 4
   if select == 1
     if Strain.all.count == 0
       #Strain.connection
-      puts "There are no strains available currently".magenta
+      puts "There are no strains available currently. Check our dispensaries page.".magenta
     else
       heading("   STRAINS  ")
       strain = prompt.select("Strains".cyan, Strain.class_hash, per_page: 20)
@@ -97,18 +97,19 @@ while select != 4
     else
       heading("  YOUR CART ")
       user.cart_display
-      select prompt.select("Would you like to...", {
+      select = prompt.select("Would you like to...", {
           "checkout" => 1, "exit app" => 2})
-      # if
-      #   select == 1
-      #   user.empty_cart
-      #   "thank you for shopping with us!"
-      #   exit
-      # elsif select == 2
-      #   system"clear"
-      #   exit
-      # else
-      # end
+      if
+        select == 1
+        user.empty_cart
+        puts ""
+        puts "Thank you for shopping with us!".magenta
+        puts ""
+      elsif select == 2
+        system"clear"
+        exit
+      else
+      end
     end
   end
 end
