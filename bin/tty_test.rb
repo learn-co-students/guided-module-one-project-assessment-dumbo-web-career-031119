@@ -20,7 +20,6 @@ end
 heading("   Welcome! ")
 puts "PLANTMEDS "
 
-
 if User.all.count == 0
   #User.connection
   puts "You are our first user! Make a username".blue
@@ -46,12 +45,15 @@ else
 end
 
 while select != 4
+#  system "clear"
+#  heading("  PLANTMEDS ")
   select = prompt.select("Would you like to...", {
       "select from strains" => 1, "select from dispensaries" => 2, "view cart" => 3, "exit app" => 4})
   system "clear"
   if select == 1
     if Strain.all.count == 0
       #Strain.connection
+      heading("  PLANTMEDS ")
       puts "There are no strains available currently. Check our dispensaries page.".magenta
     else
       heading("   STRAINS  ")
@@ -72,6 +74,7 @@ while select != 4
     end
   elsif select == 2
     if Dispensary.all.count == 0
+      #Strain.connection
       heading("  PLANTMEDS ")
       puts "There are no dispensaries currently".magenta
       prompt.select("For seeds", "click here")
@@ -93,7 +96,8 @@ while select != 4
       end
     end
   elsif select == 3
-    if Strain.all.count == 0 || user.cart.empty?
+#    binding.pry
+    if user.cart.empty? || Strain.all.count == 0
       system "clear"
       heading("  YOUR CART ")
       puts "Your cart is empty.".red
@@ -115,3 +119,8 @@ while select != 4
     end
   end
 end
+
+#p Strain.find_by(name: strain).name
+
+#binding.pry
+0
