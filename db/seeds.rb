@@ -9,14 +9,14 @@ skywalker = Strain.create(name: "Sky Walker Kush", indica: 60, sativa: 40, thc: 
 acdc = Strain.create(name: "ACDC", indica: 60, sativa: 40, thc: 1.00, cbd: 16.00, benefits: "energy, focus, happiness, relaxation, uplift", medical: "depression, inflammation, muscle spasms, pain")
 frosty = Strain.create(name: "Frosty Kush", indica: 65, sativa: 35, thc: 22.00, cbd: 0.05, benefits: "happiness, uplift, euphoria", medical: "stress, depression")
 
-harmony = Dispensary.create(name: "Harmony", location: "600 Meadowlands Pkwy", town: "Seacaucus", zip_code: "07094")
-compassionate = Dispensary.create(name: "Compassionate Care Foundation", location: "100 Century Dr.", town: "Egg Harbor Township", zip_code: "08234")
-curaleaf = Dispensary.create(name: "CuraLeaf NJ", location: "640 Creek Road", town: "Bellmawr", zip_code: "08031")
-garden_state = Dispensary.create(name: "Garden State Dispensary", location: "950 US-1", town: "Woodbridge", zip_code: "07095")
-greenleaf = Dispensary.create(name: "Greenleaf Compassion Center", location: "395 Bloomfield Ave", town: "Montclair", zip_code: "07042")
+harmony = Dispensary.create(name: "Harmony", pricing: 56.27, location: "600 Meadowlands Pkwy", town: "Seacaucus", zip_code: "07094")
+compassionate = Dispensary.create(name: "Compassionate Care Foundation", pricing: 54.90, location: "100 Century Dr.", town: "Egg Harbor Township", zip_code: "08234")
+curaleaf = Dispensary.create(name: "CuraLeaf NJ", pricing: 55.00, location: "640 Creek Road", town: "Bellmawr", zip_code: "08031")
+garden_state = Dispensary.create(name: "Garden State Dispensary", pricing: 60.00, location: "950 US-1", town: "Woodbridge", zip_code: "07095")
+greenleaf = Dispensary.create(name: "Greenleaf Compassion Center", pricing: 65.00, location: "395 Bloomfield Ave", town: "Montclair", zip_code: "07042")
 
-harmony_strains = [strawberry_og, chrome_cake, twenty_two_jack, chocolope, girl_scout_cookies, skywalker]
-compassionate_strains = [twenty_two_jack, acdc]
+harmony_strains = [strawberry_og, chrome_cake, twenty_two_jack, chocolope, girl_scout_cookies, skywalker, purple_kush]
+compassionate_strains = [twenty_two_jack, acdc, frosty]
 curaleaf_strains = [girl_scout_cookies, skywalker]
 garden_state_strains = [acdc, girl_scout_cookies]
 greenleaf_strains = [acdc, strawberry_og]
