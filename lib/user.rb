@@ -26,5 +26,9 @@ class User < ActiveRecord::Base
     CartItem.create(self.id,dispensary_item.id)
   end
 
+  def total
+#    CartItem.all.select { |}
+  end
+
 
 end
