@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_161257) do
+ActiveRecord::Schema.define(version: 2019_03_27_133052) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer "user_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_161257) do
     t.string "location"
     t.string "town"
     t.string "zip_code"
+    t.float "pricing"
   end
 
   create_table "dispensary_inventories", force: :cascade do |t|
