@@ -31,20 +31,21 @@ class User < ActiveRecord::Base
   end
 
   def total
-    total = self.cart_items.map { |cartItem| cartItem.price.to_f}.sum
-    if total.to_s.split(".")[1].length == 1
-      total = total.to_s + "0"
-    else
-      total = total.round(2)
-    end
-    total
+    self.cart_items.map { |cartItem| cartItem.price}.sum
   end
 
   def empty_cart
     self.cart_items.each { |cartItem| cartItem.delete}
   end
 
-
+  def cart
+  user_cart =  cart_item.all.select do |item|
+      self.id == item.user_id
+    end
+    user_cart.each do |item|
+      puts item
+    end
+  end
 
   def buy_item_from_dispensary(dispensary_item)
     CartItem.create(self.id,dispensary_item.id)

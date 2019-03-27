@@ -18,7 +18,6 @@ def heading(string)
 end
 
 heading("   Welcome! ")
-puts "PLANTMEDS "
 
 if User.all.count == 0
   #User.connection
@@ -45,15 +44,12 @@ else
 end
 
 while select != 4
-#  system "clear"
-#  heading("  PLANTMEDS ")
   select = prompt.select("Would you like to...", {
       "select from strains" => 1, "select from dispensaries" => 2, "view cart" => 3, "exit app" => 4})
   system "clear"
   if select == 1
     if Strain.all.count == 0
       #Strain.connection
-      heading("  PLANTMEDS ")
       puts "There are no strains available currently. Check our dispensaries page.".magenta
     else
       heading("   STRAINS  ")
@@ -75,7 +71,6 @@ while select != 4
   elsif select == 2
     if Dispensary.all.count == 0
       #Strain.connection
-      heading("  PLANTMEDS ")
       puts "There are no dispensaries currently".magenta
       prompt.select("For seeds", "click here")
       system "rake db:seed"
@@ -96,22 +91,21 @@ while select != 4
       end
     end
   elsif select == 3
-#    binding.pry
-    if user.cart.empty? || Strain.all.count == 0
-      system "clear"
+    if Strain.all.count == 0 || user.cart.empty?
       heading("  YOUR CART ")
       puts "Your cart is empty.".red
     else
       heading("  YOUR CART ")
       user.cart_display
       select = prompt.select("Would you like to...", {
-          "continue shopping" => 1, "checkout" => 2, "exit app" => 3})
-      if select == 2
+          "checkout" => 1, "exit app" => 2})
+      if
+        select == 1
         user.empty_cart
         puts ""
         puts "Thank you for shopping with us!".magenta
         puts ""
-      elsif select == 3
+      elsif select == 2
         system"clear"
         exit
       else
