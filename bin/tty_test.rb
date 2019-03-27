@@ -82,8 +82,10 @@ while select != 4
     end
   elsif select == 3
     if Strain.all.count == 0 || user.cart.empty?
-      puts "Your cart is empty."
+      heading("  YOUR CART ")
+      puts "Your cart is empty.".red
     else
+      heading("YOUR CART")
       user.cart_items
     end
   end

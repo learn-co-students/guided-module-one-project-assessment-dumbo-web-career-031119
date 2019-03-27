@@ -13,6 +13,7 @@ class Strain < ActiveRecord::Base
     puts "THC: #{self.thc}"
     puts "CBD: #{self.cbd}"
     puts "Benefits: #{self.benefits}"
+    puts "Medical uses: #{self.medical}"
     puts "\n"
   end
 
