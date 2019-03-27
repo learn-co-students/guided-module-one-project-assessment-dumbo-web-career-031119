@@ -5,6 +5,7 @@ class CreateDispensaries < ActiveRecord::Migration[5.2]
       t.string :location
       t.string :town
       t.string :zip_code
+      t.float :pricing
     end
   end
 end

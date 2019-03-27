@@ -1,41 +1,115 @@
 require_relative '../config/environment'
+require "colorize"
+
 ActiveRecord::Base.logger = nil
 
 prompt = TTY::Prompt.new
 system "clear"
 
-select = prompt.select("Would you like to...", %w(login signup))
+system "rake db:migrate"
+system "clear"
 
+#puts String.color_samples
 
+def heading(string)
+  puts "                            ".colorize(color: :light_white, background: :green)
+  puts "        #{string}        ".colorize(color: :light_white, background: :green)
+  puts "                            ".colorize(color: :light_white, background: :green)
+end
+
+heading("   Welcome! ")
+
+if User.all.count == 0
+  #User.connection
+  puts "You are our first user! Make a username".blue
+  select = "signup"
+else
+  select = prompt.select("Would you like to...".magenta, %w(login signup exit))
+end
 
 if select == "signup"
   username = prompt.ask('username:')
   password = prompt.mask('password:')
   user = User.create(username: username, password: password)
+elsif select == "exit"
+  system "clear"
+  exit
 else
-  user = prompt.select("Users", User.names)
+  user = prompt.select("User:".magenta, User.tty_hash)
+  password = prompt.mask('password:'.magenta)
+  while password != user.password
+    puts "Invalid password. Please try again."
+    password = prompt.mask('password: ')
+  end
 end
 
-while select != 3
-  select = prompt.select("Would you like to select from a list of...", {
-      strains: 1, dispensaries: 2, "exit app" => 3})
+while select != 4
+  select = prompt.select("Would you like to...", {
+      "select from strains" => 1, "select from dispensaries" => 2, "view cart" => 3, "exit app" => 4})
   system "clear"
   if select == 1
-    strain = prompt.select("Strains", Strain.class_hash)
-    strain.info
-    y_or_n = prompt.yes?('Would you like this strain?') # y returns true
-   if y_or_n
-     dispensaries = strain.dispensaries
-     selection = prompt.select('Available at:', dispensaries.tty_choices(strain))
-     cart_item = CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
-     puts "Added to cart!"
-     binding.pry
-  #   prompt.ask("Added to cart!", {continue_shopping, all_good})
-     #need a method to return hash of selected dispensaries with name as key and instance of DispensaryInventory as value
-   end
+    if Strain.all.count == 0
+      #Strain.connection
+      puts "There are no strains available currently".magenta
+    else
+      heading("   STRAINS  ")
+      strain = prompt.select("Strains".cyan, Strain.class_hash, per_page: 20)
+      strain.info
+      boolean = prompt.select('Would you like this strain?', {yes: true, no: false})
+      if DispensaryInventory.where(strain_id: strain.id).count == 0
+        puts "#{strain.name} is currently unavailable.".red
+        puts "\n"
+      elsif boolean == true
+        dispensaries = strain.dispensaries
+        selection = prompt.select('Available at:', strain.locations)
+        CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+        puts ""
+        puts "#{selection.strain.name} from #{selection.dispensary.name} has been added to your cart!"
+        puts ""
+      end
+    end
   elsif select == 2
-    dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
-    Dispensary.find_by(name: dispensary).info
+    if Dispensary.all.count == 0
+      #Strain.connection
+      puts "There are no dispensaries currently".magenta
+      prompt.select("For seeds", "click here")
+      system "rake db:seed"
+    else
+      heading("DISPENSARIES")
+      dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
+      puts ""
+      puts "All strains are $#{dispensary.pricing} for 1/8 oz.".colorize(color: :blue, background: :cyan)
+      puts ""
+      selection = prompt.select('Select a strain:', dispensary.inventory)
+      selection.strain.info
+      boolean = prompt.select('Would you like this strain?', {yes: true, no: false})
+      if boolean == true
+        CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
+        puts ""
+        puts "#{selection.strain.name} from #{selection.dispensary.name} has been added to your cart!"
+        puts ""
+      end
+    end
+  elsif select == 3
+    if Strain.all.count == 0 || user.cart.empty?
+      heading("  YOUR CART ")
+      puts "Your cart is empty.".red
+    else
+      heading("  YOUR CART ")
+      user.cart_display
+      select prompt.select("Would you like to...", {
+          "checkout" => 1, "exit app" => 2})
+      # if
+      #   select == 1
+      #   user.empty_cart
+      #   "thank you for shopping with us!"
+      #   exit
+      # elsif select == 2
+      #   system"clear"
+      #   exit
+      # else
+      # end
+    end
   end
 end
 
