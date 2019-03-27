@@ -18,8 +18,11 @@ class User < ActiveRecord::Base
   def cart_display
     puts "Your cart:"
     cart.each do |item|
-      puts "#{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}".magenta
+      puts "1/8 oz. #{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}, $#{item.price}".magenta
     end
+    puts ""
+    print " Your total is ".colorize(color: :blue, background: :cyan)
+    puts "$#{self.total} ".colorize(color: :red, background: :cyan)
     puts "\n"
   end
 
@@ -31,5 +34,8 @@ class User < ActiveRecord::Base
     self.cart_items.map { |cartItem| cartItem.price}.sum
   end
 
+  def empty_cart
+    self.cart_items.each { |cartItem| cartItem.delete}
+  end
 
 end

@@ -1,8 +1,12 @@
 require_relative '../config/environment'
 require "colorize"
+
 ActiveRecord::Base.logger = nil
 
 prompt = TTY::Prompt.new
+system "clear"
+
+system "rake db:migrate"
 system "clear"
 
 #puts String.color_samples
@@ -46,7 +50,7 @@ while select != 4
   if select == 1
     if Strain.all.count == 0
       #Strain.connection
-      puts "There are no strains available"
+      puts "There are no strains available currently".magenta
     else
       heading("   STRAINS  ")
       strain = prompt.select("Strains".cyan, Strain.class_hash, per_page: 20)
@@ -67,7 +71,9 @@ while select != 4
   elsif select == 2
     if Dispensary.all.count == 0
       #Strain.connection
-      puts "There are no dispensaries."
+      puts "There are no dispensaries currently".magenta
+      prompt.select("For seeds", "click here")
+      system "rake db:seed"
     else
       heading("DISPENSARIES")
       dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
@@ -89,7 +95,7 @@ while select != 4
       heading("  YOUR CART ")
       puts "Your cart is empty.".red
     else
-      heading("YOUR CART")
+      heading("  YOUR CART ")
       user.cart_display
       select prompt.select("Would you like to...", {
           "checkout" => 1, "exit app" => 2})
