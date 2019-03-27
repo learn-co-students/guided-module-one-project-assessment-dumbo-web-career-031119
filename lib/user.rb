@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :strains, through: :dispensary_inventories
   has_many :cart_items
 
+  attr_accessor :total
+
   def self.tty_hash
     hash = {}
     all.each { |user| hash[user.username] = user }
@@ -15,49 +17,33 @@ class User < ActiveRecord::Base
     end
   end
 
-  def total
-    self.cart_items.map { |cartItem| cartItem.price}.sum
-    # if totalz.to_s.split(".")[1].length == 1
-    #   totalz = totalz.to_s + "0"
-    # else
-    #   totalz = totalz.round(2).to_s
-    # end
+  def sum_total
+    self.reload
+    self.total = self.cart_items.map { |cartItem| cartItem.price}.sum
+#    self.total
   end
 
-  # def cart_display
-  #   # if total.to_s.split(".")[1].length == 1
-  #   #   total = total.to_s + "0"
-  #   # else
-  #   #   total = total.round(2).to_s
-  #   # end
-  #
-  #   puts "Your cart:"
-  #   cart.each do |item|
-  #     puts "1/8 oz. #{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}, $#{item.format_price}".magenta
-  #   end
-  #   puts ""
-  #   print " Your total is ".colorize(color: :blue, background: :cyan)
-  #   print "$"
-  #   puts self.total.round(2) #.colorize(color: :red, background: :cyan)
-  #   puts "\n"
+  # def add_item_to_cart(dispensary_inventory)
+  #   newItem = CartItem.create(user_id: self.id, dispensary_inventory_id: dispensary_inventory.id)
+  #   binding.pry
+  #   self.total += newItem.price
+  #   self.reload
+  #   newItem
   # end
 
   def cart_display
    puts "Your cart:"
    cart.each do |item|
-     puts "1/8 oz. #{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}, $#{item.price}".magenta
+     puts "1/8 oz. #{item.dispensary_inventory.strain.name} @ #{item.dispensary_inventory.dispensary.name}, $#{item.format_pricing}".magenta
    end
    puts ""
    print " Your total is ".colorize(color: :blue, background: :cyan)
-   puts "$#{self.total} ".colorize(color: :red, background: :cyan)
+   puts "$#{format_price(self.sum_total)} ".colorize(color: :red, background: :cyan)
    puts "\n"
  end
 
-
-  def empty_cart
-    self.cart_items.each { |cartItem| cartItem.delete}
+ def empty_cart
+     self.cart_items.each { |cartItem| cartItem.delete}
   end
-
-
 
 end

@@ -37,7 +37,7 @@ class Strain < ActiveRecord::Base
     DispensaryInventory.all.select { |item|
       item.strain_id == self.id
       }.each { |item|
-      hash["#{Dispensary.find(item.dispensary_id).name}, $#{Dispensary.find(item.dispensary_id).pricing} per 1/8 oz." ] = item}
+      hash["#{Dispensary.find(item.dispensary_id).name}, $#{Dispensary.find(item.dispensary_id).format_pricing} per 1/8 oz." ] = item}
     hash
   end
 

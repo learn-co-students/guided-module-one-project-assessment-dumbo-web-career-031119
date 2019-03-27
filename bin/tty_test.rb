@@ -17,6 +17,15 @@ def heading(string)
   puts "                            ".colorize(color: :light_white, background: :green)
 end
 
+def format_price(price)
+  if price.to_s.split(".")[1].length == 1
+    price = price.to_s + "0"
+  else
+    price = price.round(2).to_s
+  end
+  price
+end
+
 heading("   Welcome! ")
 
 if User.all.count == 0
@@ -49,7 +58,7 @@ while select != 4
   system "clear"
   if select == 1
     if Strain.all.count == 0
-      #Strain.connection
+      heading("  PLANTMEDS ")
       puts "There are no strains available currently".magenta
     else
       heading("   STRAINS  ")
@@ -70,7 +79,7 @@ while select != 4
     end
   elsif select == 2
     if Dispensary.all.count == 0
-      #Strain.connection
+      heading("  PLANTMEDS ")
       puts "There are no dispensaries currently".magenta
       prompt.select("For seeds", "click here")
       system "rake db:seed"
@@ -78,12 +87,13 @@ while select != 4
       heading("DISPENSARIES")
       dispensary = prompt.select("Dispensaries", Dispensary.class_hash)
       puts ""
-      puts "All strains are $#{dispensary.pricing} for 1/8 oz.".colorize(color: :blue, background: :cyan)
+      puts "All strains are $#{format_price(dispensary.pricing)} for 1/8 oz.".colorize(color: :blue, background: :cyan)
       puts ""
       selection = prompt.select('Select a strain:', dispensary.inventory)
       selection.strain.info
       boolean = prompt.select('Would you like this strain?', {yes: true, no: false})
       if boolean == true
+    #    user.add_item_to_cart(selection)
         CartItem.create(user_id: user.id, dispensary_inventory_id: selection.id)
         puts ""
         puts "#{selection.strain.name} from #{selection.dispensary.name} has been added to your cart!"
@@ -102,8 +112,7 @@ while select != 4
       if select == 2
         user.empty_cart
         "thank you for shopping with us!"
-        exit
-      elsif select == 2
+      elsif select == 3
         system"clear"
         exit
       end
