@@ -1,10 +1,15 @@
 require 'pry'
 class CommandLineInterface
+  # User.destroy_all
 
 
   def welcome
     Currency.destroy_all
     Wallet.destroy_all
+    # User.destroy_all
+    @btc = Currency.create(price: 4025, name: "Bitcoin", symbol: "BTC")
+    @eth = Currency.create(price: 138, name: "Ethereum", symbol: "ETH")
+    # Wallet.destroy_all
     system "clear"
     puts "
     _    _ _____ _     _____ ________  ___ _____
@@ -13,7 +18,6 @@ class CommandLineInterface
     | |/\| |  __|| |   | |   | | | | |\/| ||  __|
     \  /\  / |___| |___| \__/\ \_/ / |  | || |___
     \/  \/\____/\_____/\____/\___/\_|  |_/\____/
-
     "
 
     def create_user
@@ -25,7 +29,7 @@ class CommandLineInterface
     def initial_prompt
       puts 'If you do not already have an account a new one will be created for you with the information given below.'
       puts 'Please enter a username below to continue:'
-      @name = gets.chomp.capitalize
+      @name = gets.chomp
       puts 'Please enter a password below to continue:'
       @pass = gets.chomp
 
@@ -44,28 +48,25 @@ class CommandLineInterface
     end
     initial_prompt
 
-
-
-    def get_user_balance
-      user_balance = User.find_by(balance: 1).address
-
-    end
-
-
     def create_currency
-      # Currency.destroy_all
-      # @@all = []
-      @btc = Currency.new(price: 4025, name: "Bitcoin", symbol: "BTC")
-      @eth = Currency.new(price: 138, name: "Ethereum", symbol: "ETH")
+      # if Currency.destroy_all
+        @btc = Currency.create(price: 4025, name: "Bitcoin", symbol: "BTC")
+        @eth = Currency.create(price: 138, name: "Ethereum", symbol: "ETH")
     end
-    create_currency
 
 
+# def can_destroy_a_single_item
+#   Movie.create(title: "That One Where the Guy Kicks Another Guy Once")
+#   movie = Movie.find_by(title: "That One Where the Guy Kicks Another Guy Once")
+#   movie.destroy[movie]
+# end
 
-    #############
 
-    # Create user only when needed
-    ### Variables
+    #
+    # def delete_wallet
+    #   delete_request = User.find_by(username: @name, password: @pass)
+    #   delete_request.destroy_all
+    # end
 
 
     test = true
@@ -76,17 +77,12 @@ class CommandLineInterface
       purchase_ethereum = '₿ 2. Purchase Ethereum.'
       sell_bitcoin = '₿ 3. Sell Bitcoin.'
       sell_ethereum = '₿ 4. Sell Ethereum.'
-
-
       check_prices = '₿ 5. Check prices.'
+      delete_your_account = '₿ 6. Delete Account.'
+
       #gives options
 
-      #puts the attributes of the wallet with user id 1
-      # puts Wallet.find_by(user_id: 1).address
-
-      # puts
-
-      puts "#{purchase_bitcoin}\n#{purchase_ethereum}\n#{sell_bitcoin}\n#{sell_ethereum}\n#{check_prices}\n\nPress any other key to exit".chomp
+      puts "#{purchase_bitcoin}\n#{purchase_ethereum}\n#{sell_bitcoin}\n#{sell_ethereum}\n#{check_prices}\n#{delete_your_account}\n\nPress any other key to exit".chomp
       # Gets users selection
       response = gets.chomp
       # Chooses response based off user response
@@ -112,7 +108,8 @@ class CommandLineInterface
           answer = gets.chomp.capitalize
           if answer == 'Y'
             if total > @@user.balance
-              puts "Sorry, you currently do not have a high enough balance to complete this order. Please make a deposit into your account to continue with this transaction."
+              sleep(1)
+              puts "\n\n\nSorry, you currently do not have a high enough balance to complete this order. Please make a deposit into your account to continue with this transaction.\n\n\n -----------------------------------------------------------------\n\n\n"
             else
               updated_total = @@user.balance - total
               @@user.update(balance: updated_total)
@@ -123,7 +120,7 @@ class CommandLineInterface
                 puts "..."
               end
               sleep(1)
-              puts "\n\n\nYou now have #{@@user.btc_quant}#{@btc.symbol}. Your new account balance is now $#{updated_total}0. Thank you for your business!\n\n\n"
+              puts "\n\n\nYou now have #{@@user.btc_quant}#{@btc.symbol}. Your new account balance is now $#{updated_total}0. Thank you for your business!\n\n\n -----------------------------------------------------------------\n\n\n"
             end
           else
             sleep(0.5)
@@ -156,7 +153,8 @@ class CommandLineInterface
           answer = gets.chomp.capitalize
           if answer == 'Y'
             if total > @@user.balance
-              puts "Sorry, you currently do not have a high enough balance to complete this order. Please make a deposit into your account to continue with this transaction."
+              sleep(1)
+              puts "\n\n\nSorry, you currently do not have a high enough balance to complete this order. Please make a deposit into your account to continue with this transaction.\n\n\n -----------------------------------------------------------------\n\n\n"
             else
               updated_total = @@user.balance - total
               @@user.update(balance: updated_total)
@@ -167,13 +165,13 @@ class CommandLineInterface
                 puts "..."
               end
               sleep(1)
-              puts "\n\n\nYou now have #{@@user.eth_quant}#{@eth.symbol}. Your new account balance is now $#{updated_total}0. Thank you for your business!\n\n\n"
+              puts "\n\n\nYou now have #{@@user.eth_quant}#{@eth.symbol}. Your new account balance is now $#{updated_total}0. Thank you for your business!\n\n\n -----------------------------------------------------------------\n\n\n"
             end
           else
             sleep(0.5)
             puts "Sorry we couldn't sell you anything today!"
             sleep(0.5)
-            puts "Bye!"
+            puts "Bye!\n\n\n -----------------------------------------------------------------\n\n\n"
           end
         end
         add_eth
@@ -200,8 +198,14 @@ class CommandLineInterface
           answer = gets.chomp.capitalize
           if answer == 'Y'
             if @@user.btc_quant < @quantity_amt
+              sleep(1)
+              puts "Processing your order..."
+              3.times do sleep(0.5)
+                puts "..."
+              end
+              sleep(1)
               # binding.pry
-              puts "Sorry, you currently do not have a high enough balance to complete this order. Please make a deposit into your account to continue with this transaction."
+              puts "Sorry, you currently do not have a high enough balance to complete this order. Please make a deposit into your account to continue with this transaction.\n\n\n -----------------------------------------------------------------\n\n\n"
             else
               updated_total = @@user.balance + total
               @@user.update(balance: updated_total)
@@ -212,13 +216,13 @@ class CommandLineInterface
                 puts "..."
               end
               sleep(1)
-              puts "\n\n\nYou now have #{@@user.btc_quant}#{@btc.symbol}. Your new account balance is $#{updated_total}0. Thank you for your business!\n\n\n"
+              puts "\n\n\nYou now have #{@@user.btc_quant}#{@btc.symbol}. Your new account balance is $#{updated_total}0. Thank you for your business!\n\n\n -----------------------------------------------------------------\n\n\n"
             end
           else
             sleep(0.5)
             puts "Sorry we couldn't sell you anything today!"
             sleep(0.5)
-            puts "Bye!"
+            puts "Bye!\n\n\n -----------------------------------------------------------------\n\n\n"
           end
         end
         remove_bitcoin_from_user
@@ -247,6 +251,12 @@ class CommandLineInterface
           answer = gets.chomp.capitalize
           if answer == 'Y'
             if @@user.eth_quant < @quantity_amt
+              sleep(1)
+              puts "Processing your order..."
+              3.times do sleep(0.5)
+                puts "..."
+              end
+              sleep(1)
               # binding.pry
               puts "Sorry, you currently do not have a high enough balance to complete this order. Please make a deposit into your account to continue with this transaction."
             else
@@ -259,13 +269,13 @@ class CommandLineInterface
                 puts "..."
               end
               sleep(1)
-              puts "\n\n\nYou now have #{@@user.eth_quant}#{@eth.symbol}. Your new account balance is $#{updated_total}0. Thank you for your business!\n\n\n"
+              puts "\n\n\nYou now have #{@@user.eth_quant}#{@eth.symbol}. Your new account balance is $#{updated_total}0. Thank you for your business!\n\n\n -----------------------------------------------------------------\n\n\n"
             end
           else
             sleep(0.5)
             puts "Sorry we couldn't sell you anything today!"
             sleep(0.5)
-            puts "Bye!"
+            puts "Bye!\n\n\n -----------------------------------------------------------------\n\n\n"
           end
         end
         remove_eth_from_user
@@ -276,7 +286,46 @@ class CommandLineInterface
       elsif response == '5'
         sleep(1)
         puts "Checking prices..."
-        puts "\n\n\nThe current price of #{@btc.name} is $#{@btc.price}0.\nThe current price of #{@eth.name} is $#{@eth.price}0.\n\n\n"
+        # puts "\n\n\nThe current price of #{@btc.name} is $#{@btc.price}0.\nThe current price of #{@eth.name} is $#{@eth.price}0.\n\n\n"
+        sleep(1)
+        puts "Connecting to database..."
+        3.times do sleep(0.5)
+          puts "..."
+        end
+        if @@user.btc_quant > 0 && @@user.eth_quant == 0
+          puts "\n\n\nYou have an inventory of #{@@user.btc_quant}#{@btc.symbol} at an average price of $#{@btc.price}0/#{@btc.symbol}.\n\nThe current price of #{@eth.name} is $#{@eth.price}0.\n\n\n -----------------------------------------------------------------\n\n\n"
+        elsif @@user.eth_quant > 0 && @@user.btc_quant == 0
+          puts "\n\n\nYou have an inventory of #{@@user.eth_quant}#{@eth.symbol} at an average price of $#{@eth.price}0/#{@eth.symbol}.\n\nThe current price of #{@btc.name} is $#{@btc.price}0.\n\n\n -----------------------------------------------------------------\n\n\n"
+        elsif @@user.btc_quant == 0 && @@user.eth_quant == 0
+          puts "\n\n\nYour inventory is currently empty. The average price of of #{@btc.name} is $#{@btc.price}0/#{@btc.symbol}, and the average price of #{@eth.name} is $#{@eth.price}0/#{@eth.symbol}.\n\n\n -----------------------------------------------------------------\n\n\n"
+        else
+          puts "\n\n\nYou have an inventory of #{@@user.btc_quant}#{@btc.symbol} at an average price of $#{@btc.price}0/#{@btc.symbol}, and #{@@user.eth_quant}#{@eth.symbol} at an the average price of #{@eth.price}0/#{@eth.symbol}.\n\n\n -----------------------------------------------------------------\n\n\n"
+        end
+
+
+        # Delete Account
+        elsif response == '6'
+          3.times do sleep(0.5)
+            puts "..."
+          end
+          puts "Are you sure you want to delete your account? This will clear all of your inventory and credentials. Please press 'Y' to confirm and any other key to cancel."
+          response = gets.chomp
+          if response == 'y'
+            3.times do sleep(0.5)
+              puts "..."
+            end
+            puts "Now deleting your account."
+            delete_your_account
+          else
+            3.times do sleep(0.5)
+              puts "..."
+            end
+            puts "Now taking you back to the menu."
+            3.times do sleep(0.5)
+              puts "..."
+            end
+          end
+
 
       else
         test = false
@@ -284,15 +333,6 @@ class CommandLineInterface
     end
   end
 end
-
-
-
-
-
-
-################## Tests
-
-
 
 
 ####################

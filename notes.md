@@ -2,6 +2,31 @@
 ################## Cryptocurrency Portfolio/Ticker App ##################
 
 
+# DONE
+
+1. Greeting message
+2. Prompt to login or register
+3. Search user table to see if user is registered
+4. If user is not registered, a new account is made for them using the given information (name and pass from prompt, default account balances all set to 0), and they then arrive at menu
+5. If user is registered and enters correct login info, they arrive at the menu
+6. Menu has 5 options :
+    Buy Bitcoin
+    Buy Ethereum
+    Sell Bitcoin
+    Sell Ethereum
+    Check prices of both coins
+7. To exit, user presses any key not shown as an option
+
+All menu options.
+
+
+
+
+
+
+
+
+
 # To do
 
 
