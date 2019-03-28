@@ -33,9 +33,11 @@ end
 def signup
   username = prompt.ask('username:'.magenta)
   password = prompt.mask('password:'.magenta, mask: "🌿")
-  user = User.create(username: username, password: password)
-  clear
-  user
+  if ActiveRecord::Base.connection.table_exists? 'users'
+    user = User.create(username: username, password: password)
+    clear
+    return user
+  end
 end
 
 def login_page
