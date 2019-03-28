@@ -8,6 +8,8 @@ girl_scout_cookies = Strain.create(name: "Girl Scout Cookies", indica: 60, sativ
 skywalker = Strain.create(name: "Sky Walker Kush", indica: 60, sativa: 40, thc: 16.00, cbd: 0.03, benefits: "euphoria, relaxation, happiness", medical: "anxiety, pain, depression, insomnia")
 acdc = Strain.create(name: "ACDC", indica: 60, sativa: 40, thc: 1.00, cbd: 16.00, benefits: "energy, focus, happiness, relaxation, uplift", medical: "depression, inflammation, muscle spasms, pain")
 frosty = Strain.create(name: "Frosty Kush", indica: 65, sativa: 35, thc: 22.00, cbd: 0.05, benefits: "happiness, uplift, euphoria", medical: "stress, depression")
+green_crack = Strain.create(name: "Green Crack", indica: 100, sativa: 0, thc: 20.00, cbd: 0.03, benefits: "happiness, energy, uplift, euphoria, focus", medical: "stress, depression, fatigue, pain, headaches")
+
 
 harmony = Dispensary.create(name: "Harmony", pricing: 56.27, location: "600 Meadowlands Pkwy", town: "Seacaucus", zip_code: "07094")
 compassionate = Dispensary.create(name: "Compassionate Care Foundation", pricing: 54.90, location: "100 Century Dr.", town: "Egg Harbor Township", zip_code: "08234")

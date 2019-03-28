@@ -3,9 +3,38 @@ require_relative 'run_methods.rb'
 
 
 ActiveRecord::Base.logger = nil
+prompt
+clear
+#system "User.connection"
 
+if !ActiveRecord::Base.connection.table_exists? 'users'
+  choice = prompt.select("Deploy our program?", %w(Yea no))
+  if choice == "no"
+    puts "🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺"
+    #clear
+    exit
+  end
+end
+
+puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
+#    binding.pry
 
 system "rake db:migrate"
+
+if ActiveRecord::Base.connection.table_exists? 'users'
+  clear
+  heading("   Welcome! ")
+  puts ""
+  puts "PLANTMEDS"
+  puts ""
+  heading("  PLANTMEDS ")
+  user = first_user
+  selection = program_menu
+else
+  selection = 4
+end
+
+puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
 
 clear
 
@@ -14,15 +43,20 @@ puts ""
 puts "PLANTMEDS"
 puts ""
 
-selection = nil
 
-if User.all.count == 0
-  user = first_user
-else
-  user = login_page
-  selection = program_menu
-  clear
-end
+#binding.pry
+
+# if User.all.count > 0
+#   user = login_page
+#   selection = program_menu
+#   clear
+# else
+#   heading("   Welcome! ")
+#   puts ""
+#   puts "PLANTMEDS"
+#   puts ""
+#   user = first_user
+# end
 
 while selection != 5
   case selection
@@ -37,11 +71,10 @@ while selection != 5
     heading("  PLANTMEDS ")
     user = login_page
     selection = program_menu
-  when 5
-    exit
-  else
-    selection = program_menu
   end
+#  exit
+#  break selection == 5
 end
 
 clear
+exit

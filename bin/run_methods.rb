@@ -22,35 +22,40 @@ def format_price(price)
 end
 
 def first_user
+  # heading("   Welcome! ")
+  # puts ""
+  # puts "PLANTMEDS"
+  # puts ""
   puts "You are our first user! Make a username".blue
   signup
 end
 
 def signup
   username = prompt.ask('username:'.magenta)
-  password = prompt.mask('password:'.magenta)
+  password = prompt.mask('password:'.magenta, mask: "🌿")
   user = User.create(username: username, password: password)
+  clear
   user
 end
 
 def login_page
-  prompt #= TTY::Prompt.new
+  prompt
   selection = prompt.select("Would you like to...".cyan, %w(login signup exit))
   if selection == "signup"
     user = signup
-    system "clear"
+    clear
     heading("  PLANTMEDS ")
   elsif selection == "exit"
-    system "clear"
+    clear
     exit
   else
     user = prompt.select("User:".magenta, User.tty_hash)
-    password = prompt.mask('password:'.magenta)
+    password = prompt.mask('password:'.magenta, mask: "🌿")
     while password != user.password
       puts "Invalid password. Please try again.".blue
-      password = prompt.mask('password: '.magenta)
+      password = prompt.mask('password: '.magenta, mask: "🌿")
     end
-    system "clear"
+    clear
     heading("  PLANTMEDS ")
   end
   user
@@ -79,7 +84,7 @@ def strains_page(user)
     strain.info
     boolean = prompt.select('Would you like this strain?'.cyan, {yes: true, no: false})
     if DispensaryInventory.where(strain_id: strain.id).count == 0
-      puts "#{strain.name} is currently unavailable.".red
+      puts "Sorry! #{strain.name} is currently unavailable.".red
       puts "\n"
     elsif boolean == true
       dispensaries = strain.dispensaries
@@ -164,5 +169,4 @@ def view_cart(user)
       program_menu
     end
   end
-#  program_menu
 end
