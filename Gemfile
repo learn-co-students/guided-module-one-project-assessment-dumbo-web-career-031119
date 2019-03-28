@@ -6,5 +6,5 @@ gem "sqlite3", "~> 1.3.6"
 gem "pry"
 gem "require_all"
 gem "faker"
-# gem "bcrypt", "~> 3.1"
+######################
 gem 'money'

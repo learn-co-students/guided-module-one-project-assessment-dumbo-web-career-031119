@@ -7,10 +7,52 @@
 
 1. Create table for users - DONE
 2. Create class for User - DONE
-3. Create table for wallets
-4. Create class for Wallet
-5. Create table for currency
-6. Create class for Currency
+3. Create table for wallets - DONE
+4. Create class for Wallet - DONE
+5. Create table for currency - DONE
+6. Create class for Currency - DONE
+
+
+# As a user, I want to be given options of different currencies. (Read)
+#As a user, I want to be able to purchase the currency. (Create)
+#As a user, I want to enter a restaurant and be given user reviews of that restaurant. (Read)
+#As a user, I should be able to sell off bitcoin which updates in the database. (Update)
+As a user, I want to be able to delete one of my restaurant reviews. (Delete)
+
+
+# Models and Attributes
+
+User attributes: username, password, balance
+
+Wallet attributes: user_id, currency_id, balance, address
+
+Currency attributes: symbolname, price
+
+turn name user inputs into username, remove spaces, flatten(?), downcase, add number
+
+
+### Faker commands
+
+Faker::CryptoCoin.coin_name
+
+Faker::CryptoCoin.acronym
+
+Faker::CryptoCoin.coin_array[0..1] # Returns name and acronym
+
+Faker::Blockchain::Bitcoin.address
+
+Faker::Blockchain::Ethereum.address
+
+#{Faker::Creature::Cat.unique.name}#{rand(10..20)}
+# Makes password with cat name and a number between 10 and 20
+
+
+# https://blockchain.info/ticker live prices
+
+# https://blockchain.info/tobtc?currency=USD&value=500 #conversion, replace usd value=500 with variable
+
+
+BTC Emoji = ₿
 
 
 - TTY Prompt install
@@ -29,10 +71,13 @@ Currency class needs to be initialized with price, name, symbol.
 
 
 User has many wallets
+
 Wallets have one user
 
 Wallets have one currency
+
 Currency has many wallets
+
 Wallets belong to currency
 
 

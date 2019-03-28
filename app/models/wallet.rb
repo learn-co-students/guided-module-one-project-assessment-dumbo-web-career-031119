@@ -1,5 +1,6 @@
 class Wallet < ActiveRecord::Base
 
-  has_many :users, :currencies
+  belongs_to :user
+  belongs_to :currency
 
 end

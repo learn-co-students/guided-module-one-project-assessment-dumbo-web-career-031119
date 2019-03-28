@@ -10,23 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 11) do
 
   create_table "currencies", force: :cascade do |t|
-    t.string "name"
     t.float "price"
+    t.string "name"
     t.string "symbol"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password"
+    t.float "balance"
+    t.integer "btc_quant"
+    t.integer "eth_quant"
   end
 
   create_table "wallets", force: :cascade do |t|
     t.integer "user_id"
     t.integer "currency_id"
     t.float "balance"
+    t.text "address"
   end
 
 end
