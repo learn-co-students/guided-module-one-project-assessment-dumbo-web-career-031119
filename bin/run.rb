@@ -26,12 +26,13 @@ if !ActiveRecord::Base.connection.table_exists? 'users'
     puts "🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺"
     #clear
     exit
-  else
-    selection = 4
   end
   clear
   heading("  PLANTMEDS ")
-  #selection = program_menu
+else
+  heading("  PLANTMEDS ")
+  user = login_page
+  selection = program_menu
 end
 
 puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
