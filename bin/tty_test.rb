@@ -32,7 +32,6 @@ puts "PLANTMEDS"
 puts ""
 
 if User.all.count == 0
-  #User.connection
   puts "You are our first user! Make a username".blue
   select = "signup"
 else
