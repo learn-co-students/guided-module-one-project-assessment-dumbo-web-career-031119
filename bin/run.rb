@@ -11,7 +11,9 @@ clear
 if !ActiveRecord::Base.connection.table_exists? 'users'
   choice = prompt.select("Deploy our program?", %w(Yea no))
   if choice == "Yea"
+    puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     clear
+    puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     # heading("   Welcome! ")
     # puts ""
     # puts "PLANTMEDS"
@@ -21,7 +23,7 @@ if !ActiveRecord::Base.connection.table_exists? 'users'
     heading("  PLANTMEDS ")
     puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     user = first_user
-    puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
+#    puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     heading("  PLANTMEDS ")
     puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     selection = program_menu
