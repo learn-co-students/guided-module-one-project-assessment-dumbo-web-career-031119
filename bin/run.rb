@@ -19,8 +19,11 @@ if !ActiveRecord::Base.connection.table_exists? 'users'
     system "rake db:migrate"
     clear
     heading("  PLANTMEDS ")
+    puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     user = first_user
+    puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     heading("  PLANTMEDS ")
+    puts "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
     selection = program_menu
   elsif choice == "no"
     puts "🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺🥺"

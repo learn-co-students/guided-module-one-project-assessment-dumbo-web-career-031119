@@ -88,6 +88,7 @@ def strains_page(user)
     if DispensaryInventory.where(strain_id: strain.id).count == 0
       puts "Sorry! #{strain.name} is currently unavailable.".red
       puts "\n"
+    #  selection = program_menu
     elsif boolean == true
       dispensaries = strain.dispensaries
       selection = prompt.select('Available at:', strain.locations)
@@ -95,11 +96,11 @@ def strains_page(user)
       puts ""
       puts "#{selection.strain.name} from #{selection.dispensary.name} has been added to your cart!".magenta
       puts ""
-    else
-      program_menu
+    # else
+    #   program_menu
     end
   end
-  program_menu
+  selection = program_menu
 end
 
 def dispensaries_page(user)
@@ -130,11 +131,11 @@ def dispensaries_page(user)
       print " #{selection.dispensary.name} ".green
       puts "has been added to your cart!".magenta
       puts ""
-    else
-      program_menu
+    # else
+    #   program_menu
     end
   end
-  program_menu
+  selection = program_menu
 end
 
 def view_cart(user)
